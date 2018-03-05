@@ -37,7 +37,47 @@
 
 			</div>
 			<?php
+				if (isset($_GET['id'])) {
+					$id = $_GET['id'];
+					$sql = "SELECT * FROM news WHERE news_id = '$id'";
 
+							$res = mysqli_query($conn, $sql);
+
+							$row = mysqli_fetch_assoc($res);
+
+
+
+					echo ' <div class="col-md-8 pull-right">
+							
+						<div class="single-post-wrapper">
+
+							<article class="single-blog-post">
+								<div class="img-box">
+									<img src="images/blog-page/1.jpg" style="height:230px;" alt="Awesome Image"/>
+									<div class="img-caption">
+										
+									</div>
+								</div>
+								<div class="meta-info">
+									<div class="date-box">
+										
+									</div>
+									<div class="content-box">
+										<h3>'.$row['news_title'].'</h3>
+										<ul class="post-links">
+											<li><a href="#"><i class="fa fa-user"></i> By: Kogbol Admin</a></li>
+											<li><a href="#"><i class="fa fa-user"></i>'.$row['date_created'].'</a></li>
+											
+										</ul>
+									</div>
+								</div>
+								<p>'.$row['news_body'].'</p>
+
+							</article>
+
+					</div>
+				</div>';
+				} else {
 							$sql = "SELECT * FROM news LIMIT 3";
 
 							$res = mysqli_query($conn, $sql);
@@ -74,7 +114,8 @@
 								</ul>
 							</div>
 						</div>
-						<p>'.$row['news_body'].'</p>
+						<p>'.$row['news_body'].'... <a href="news.php?id='.$row['news_id'].'">Read more</a></p>
+
 					</article>					
 
 
@@ -83,6 +124,7 @@
 			</div>
 		</div>
 					';
+}
 }
 ?>
 	</div>
